@@ -278,13 +278,15 @@ class StoryAgent:
             all_messages.append(messages)
         return all_messages, plan
 
-    def split_chapters_into_scenes(self, plan):
+    def split_chapters_into_scenes(self, plan, book_spec):
         """Creates a by-scene breakdown of all chapters
 
         Parameters
         ----------
         plan : Dict
             Dict with book plan
+        book_spec : str
+            Book specification for additional context
 
         Returns
         -------
@@ -299,7 +301,7 @@ class StoryAgent:
             text_act, chs = Plan.act_2_str(plan, i)
             act_chapters[i] = chs
             messages = self.prompt_engine.split_chapters_into_scenes_messages(
-                i, text_act, self.form)
+                i, text_act, self.form, book_spec)
             act_scenes = self.query_chat(messages)
             act['act_scenes'] = act_scenes
             all_messages.append(messages)
@@ -433,7 +435,7 @@ class StoryAgent:
         _, book_spec = self.enhance_book_spec(book_spec)
         _, plan = self.create_plot_chapters(book_spec)
         _, plan = self.enhance_plot_chapters(book_spec, plan)
-        _, plan = self.split_chapters_into_scenes(plan)
+        _, plan = self.split_chapters_into_scenes(plan, book_spec)  # Added book_spec parameter
 
         form_text = []
         for act in plan:
