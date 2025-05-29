@@ -1,7 +1,8 @@
 system = (
     "You are a helpful assistant for fiction writing. "
     "Always cut the bullshit and provide concise outlines with useful details. "
-    "Do not turn your stories into fairy tales, be realistic.")
+    "Do not turn your stories into fairy tales, be realistic. "
+    "IMPORTANT: Do NOT use any markdown or any kind of special formatting (no **, *, #, ##, _, etc.). Generate plain text only.")
 
 book_spec_fields = ['Genre', 'Place', 'Time', 'Theme',
                     'Tone', 'Point of View', 'Characters', 'Premise']
@@ -29,6 +30,7 @@ def init_book_spec_messages(topic, form):
         {"role": "system", "content": system},
         {"role": "user",
          "content": f"Given the topic, come up with a specification to write a {form}. Write spec using the format below. "
+                    f"Do not use asterisks for formatting. "
                     f"Topic: {topic}\nFormat:\n\"\"\"{book_spec_format}\"\"\""},
     ]
     return messages
@@ -53,7 +55,8 @@ def enhance_book_spec_messages(book_spec, form):
         {"role": "user", "content":
             f"Make the specification for an upcoming {form} more detailed "
             f"(specific settings, major events that differentiate the {form} "
-            f"from others). Do not change the format or add more fields."
+            f"from others). Do not change the format or add more fields. "
+            f"Do not use asterisks for formatting."
             f"\nEarly {form} specification:\n\"\"\"{book_spec}\"\"\""}
     ]
     return messages
@@ -64,7 +67,8 @@ def create_plot_chapters_messages(book_spec, form):
         {"role": "system", "content": system},
         {"role": "user", "content": (
             f"Come up with a plot for a bestseller-grade {form} in 3 acts taking inspiration from its description. "
-            "Break down the plot into chapters using the following structure:\nActs\n- Chapters\n\n"
+            "Break down the plot into chapters using the following structure:\nActs\n- Chapters\n"
+            "Do not use asterisks for formatting.\n\n"
             f"Early {form} description:\n\"\"\"{book_spec}\"\"\"..")}
     ]
     return messages
@@ -76,17 +80,18 @@ def enhance_plot_chapters_messages(act_num, text_plan, book_spec, form):
         {"role": "system", "content": system},
         {"role": "user", "content": f"Come up with a plot for a bestseller-grade {form} in 3 acts. Break down the plot into chapters using the following structure:\nActs\n- Chapters\n\nEarly {form} description:\n\"\"\"{book_spec}\"\"\""},
         {"role": "assistant", "content": text_plan},
-        {"role": "user", "content": f"Take Act {act_num}. Rewrite the plan so that chapter's story value alternates (i.e. if Chapter 1 is positive, Chapter 2 is negative, and so on). Describe only concrete events and actions (who did what). Make it very short (one brief sentence and value charge indication per chapter)"}
+        {"role": "user", "content": f"Take Act {act_num}. Rewrite the plan so that chapter's story value alternates (i.e. if Chapter 1 is positive, Chapter 2 is negative, and so on). Describe only concrete events and actions (who did what). Make it very short (one brief sentence and value charge indication per chapter). Do not use asterisks for formatting."}
     ]
     return messages
 
 
-def split_chapters_into_scenes_messages(act_num, text_act, form):
+def split_chapters_into_scenes_messages(act_num, text_act, form, book_spec):
     messages = [
         {"role": "system", "content": system},
         {"role": "user", "content": (
             f"Break each chapter in Act {act_num} into scenes (number depends on how packed a chapter is), give scene specifications for each.\n"
             f"Here is the by-chapter plot summary for the act in a {form}:\n\"\"\"{text_act}\"\"\"\n\n"
+            f"Here is the overall book specification for context:\n\"\"\"{book_spec}\"\"\"\n\n"
             f"Scene spec format:\n\"\"\"{scene_spec_format}\"\"\"")}
     ]
     return messages
@@ -94,10 +99,11 @@ def split_chapters_into_scenes_messages(act_num, text_act, form):
 
 def scene_messages(scene, sc_num, ch_num, text_plan, form):
     messages = [
-        {"role": "system", "content": 'You are an expert fiction writer. Write detailed scenes with lively dialogue.'},
+        {"role": "system", "content": 'You are an expert fiction writer. Write detailed scenes with lively dialogue. Do not use asterisks for formatting or emphasis.'},
         {"role": "user",
             "content": f"Write a long detailed scene for a {form} for scene {sc_num} in chapter {ch_num} based on the information. "
-            "Be creative, explore interesting characters and unusual settings. Do NOT use foreshadowing.\n"
+            "Be creative, explore interesting characters and unusual settings. Do NOT use foreshadowing. "
+            "Do not use asterisks for formatting.\n"
             f"Here is the scene specification:\n\"\"\"{scene}\"\"\"\n\nHere is the overall plot:\n\"\"\"{text_plan}\"\"\""},
     ]
     return messages
