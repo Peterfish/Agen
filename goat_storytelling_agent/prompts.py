@@ -13,7 +13,7 @@ book_spec_format = (
     "Theme: main topics\n"
     "Tone: tone\n"
     "Point of View: POV\n"
-    "Characters: use specific names already\n"
+    "Characters: use specific names already. All characters must be Thai or of Thai mixed-race heritage.\n"
     "Premise: Premise: describe concrete events featuring anti-heroes who keep secrets. The story should accommodate endings where characters do not face repercussions for their actions, and where secrets can remain permanently undisclosed, offering a departure from typical moral resolutions.")
 
 scene_spec_format = (
