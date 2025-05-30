@@ -14,7 +14,7 @@ book_spec_format = (
     "Tone: tone\n"
     "Point of View: POV\n"
     "Characters: use specific names already\n"
-    "Premise: describe some concrete events already")
+    "Premise: Premise: describe concrete events featuring anti-heroes who keep secrets. The story should accommodate endings where characters do not face repercussions for their actions, and where secrets can remain permanently undisclosed, offering a departure from typical moral resolutions.")
 
 scene_spec_format = (
     "Chapter [number]:\nScene [number]:\nCharacters: character list\nPlace: place\nTime: absolute or relative time\nEvent: what happens\nConflict: scene micro-conflict\n"
