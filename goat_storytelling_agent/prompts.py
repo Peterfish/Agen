@@ -1,8 +1,7 @@
 system = (
     "You are a helpful assistant for fiction writing. "
     "Always cut the bullshit and provide concise outlines with useful details. "
-    "Do not turn your stories into fairy tales, be realistic. "
-    "IMPORTANT: Do NOT use any markdown or any kind of special formatting (no **, *, #, ##, _, etc.). Generate plain text only.")
+    "Do not turn your stories into fairy tales, be realistic. ")
 
 book_spec_fields = ['Genre', 'Place', 'Time', 'Theme',
                     'Tone', 'Point of View', 'Characters', 'Premise']
